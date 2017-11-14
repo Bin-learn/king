@@ -44,6 +44,7 @@
             color: #888;
         }
 
+
         .basic-grey input[type="text"], .basic-grey input[type="email"], .basic-grey textarea, .basic-grey select {
             border: 1px solid #DADADA;
             color: #888;
@@ -62,12 +63,14 @@
         }
 
         .basic-grey textarea {
+             padding: 5px 3px 3px 5px;
+         }
+        .basic-grey .open{
             padding: 5px 3px 3px 5px;
+            margin-top: 11px;
         }
 
         .basic-grey select {
-            background: #FFF url('down-arrow.png') no-repeat right;
-            background: #FFF url('down-arrow.png') no-repeat right);
             appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -79,7 +82,8 @@
         }
 
         .basic-grey textarea {
-            height: 100px;
+            height: 200px;
+            resize: vertical;
         }
 
         .basic-grey .button {
@@ -91,6 +95,7 @@
             border-radius: 3px;
             text-shadow: 1px 1px 1px #9E3F3F;
             cursor: pointer;
+            margin-top: 20px;
         }
 
         .basic-grey .button:hover {
@@ -101,10 +106,19 @@
             width: 100%;
             height: 200px;
             background: red;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .foot {
+            width: 100%;
+            height: 200px;
+            background: blue;
+            margin-top: 15px;
         }
         .left {
-            width: 80%;
+            width: 70%;
+        }
+        .right {
+            width: 30%;
         }
     </style>
 
@@ -123,30 +137,24 @@
         <div class="left">
             <div class="basic-grey">
                 <form action="" method="post" class="STYLE-NAME">
-                    <h1>Contact Form
-                        <span>Please fill all the texts in the fields.</span>
+                    <h1>写下你的心情
+                        <span>Write down your feelings</span>
                     </h1>
                     <label>
-                        <span>Your Name :</span>
-                        <input id="name" type="text" name="name" placeholder="Your Full Name"/>
+                        <span>标签：</span>
+                        <input id="content_label" type="text" name="name" placeholder="可以不写标签"/>
                     </label>
                     <label>
-                        <span>Your Email :</span>
-                        <input id="email" type="email" name="email" placeholder="Valid Email Address"/>
+                        <span>内容：</span>
+                        <textarea id="message" name="message" placeholder="写下你想说的话..."></textarea>
                     </label>
                     <label>
-                        <span>Message :</span>
-                        <textarea id="message" name="message" placeholder="Your Message to Us"></textarea>
-                    </label>
-                    <label>
-                        <span>Subject :</span><select name="selection">
-                        <option value="Job Inquiry">Job Inquiry</option>
-                        <option value="General Question">General Question</option>
-                    </select>
+                        <span>匿名：</span>
+                        <input type="checkbox" id="open" class="open"/>
                     </label>
                     <label>
                         <span>&nbsp;</span>
-                        <input type="button" class="button" value="Send"/>
+                        <input type="button" class="button" id="content_button" value="发布"/>
                     </label>
                 </form>
             </div>
@@ -155,5 +163,35 @@
 
         </div>
     </div>
+    <div class="foot"></div>
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript">
+       var bb = document.getElementById('content_button');
+        bb.onclick = function () {
+            console.log("fff");
+            var params = {};
+            params.content = $("#message").val();
+            params.label = $("#content_label").val();
+            if($("#open").checked){
+                params.isOpen = 0;
+            }else{
+                params.isOpen = 1;
+            }
+            console.log("fff");
+            $.ajax({
+                type: "POST",
+                url: "/shudong/fabiao.do",
+                data:params,
+                dataType:"json",
+                // contentType: "application/json; charset=utf-8",//此处不能设置，否则后台无法接值
+                success:function(data){
+                    window.location.href = "success.html";
+                },
+                error:function(tt){
+                    alert("出现异常，异常原因!");
+                }
+            });
+        }
+    </script>
 </body>
 </html>

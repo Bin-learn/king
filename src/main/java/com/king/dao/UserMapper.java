@@ -1,7 +1,6 @@
 package com.king.dao;
 
 import com.king.pojo.User;
-import com.king.vo.KingAndWish;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
@@ -19,7 +18,5 @@ public interface UserMapper {
 
     int checkUserMessage(String username);
 
-    User CheckPassword(@Param("username")String username, @Param("password")String password);
-
-
+    User CheckPassword(@Param("username") String username, @Param("password") String password);
 }
