@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=device-dpi">
+    <style>
+        body {
+            background: url(img/angle_back.jpg) center center;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<div style="text-align:center;">
+    <br><br>
+    <img src="img/angle.png" alt="Stanley">
+    <br>
+    <h1 id="username"></h1>
+    <p id="king"></p>
+    <p id="wish"></p>
+</div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var params = {}
+        var storage = window.localStorage;
+        var userMessage = storage.getItem("user");
+        var user = JSON.parse(userMessage);
+        var username = user.username;
+        params.username = username;
+        var king;
+        var wish;
+        console.log("nn" + user.username);
+        $.ajax({
+            type: "POST",
+            url: "/user/kingWish.do",
+            data: params,
+            dataType: "json",
+            //          contentType: "application/json; charset=utf-8",//此处不能设置，否则后台无法接值
+            success: function (d) {
+                king = d.data.king;
+                wish = d.data.wish;
+                $("#wish").html("Ta的愿望是：" + wish);
+                $("#king").html("你的国王是：" + king);
+                console.log("ff" + d.data + username + user.id);
+                console.log(d);
+                $("#username").html(username);
+            },
+            error: function (tt) {
+                alert("出现异常，异常原因【" + tt + "】!");
+            }
+        });
+    });
+</script>
+</html>
