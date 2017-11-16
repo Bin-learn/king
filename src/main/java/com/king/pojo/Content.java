@@ -1,5 +1,7 @@
 package com.king.pojo;
 
+import java.util.Date;
+
 public class Content {
     private Integer id;
 
@@ -11,12 +13,23 @@ public class Content {
 
     private String content;
 
-    public Content(Integer id, String username, String label, Byte isOpen, String content) {
+    private Date time;
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
+
+    public Content(Integer id, String username, String label, Byte isOpen, String content, Date time) {
         this.id = id;
         this.username = username;
         this.label = label;
         this.isOpen = isOpen;
         this.content = content;
+        this.time = time;
     }
 
     public Content() {

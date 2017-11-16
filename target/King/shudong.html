@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>计机向上--树洞</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="css/fabiao.css">
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <style type="text/css">
+        .message{width: 660px;padding:20px;position: relative;background-color: #EEF7FF;border: 1px solid #CCC; margin-left:100px;text-align:justify; margin-bottom: 10px}
+        .message .pubTime{position:absolute;  bottom:10px; left:100px; color:#999;}
+        .message .name{position:absolute;  bottom:10px; left:20px; color:#999;}
+        .message .message_p{margin-top: -10px; margin-bottom: 15px; }
+        .button{ position:absolute;  bottom:10px; left:400px; padding: 1px 2px 1px;margin-bottom: -2px;}
+        .button2{ position:absolute;  bottom:10px; left:450px; padding: 1px 2px 1px;margin-bottom: -2px;}
+        .page{margin-left: 100px;}
+        .left {width: 80%; margin: 0 auto}
+        .right {width: 20%;}
+    </style>
+</head>
+<body>
+<div class="head">
+    <div class="head-bg">
+    </div>
+    <div class="head-content">
+    </div>
+</div>
+<div class="total">
+    <div class="left">
+        <div class="content" id="content"></div>
+            <div class="layui-btn-group page">
+                <button class="layui-btn" id="first">首页</button>
+                <button class="layui-btn" id="last">上一页</button>
+                <button class="layui-btn" id="next">下一页</button>
+                <button class="layui-btn" id="end">尾页</button>
+            </div>
+    </div>
+    <div class="right"></div>
+</div>
+<div class="foot"></div>
+<script src="js/jquery.min.js"></script>
+<script src="layui/layui.js"></script>
+<script type="text/javascript">
+    var pageNumber = 0;
+    pageNumber = getQueryVariable('pageNumber');
+    var lastPage = 0;
+    $(document).ready(function () {
+        var content = $('#content');
+        var params = {};
+        params.pageNo =  pageNumber;
+        var message = null;
+        $.ajax({
+            type: "POST",
+            url: "/shudong/getContent.do",
+            data:params,
+            dataType:"json",
+            // contentType: "application/json; charset=utf-8",//此处不能设置，否则后台无法接值
+            success:function(data){
+                var num = data.data.list.length;
+                for(var i=0; i < num; i++){
+                    message = $("<div class='message'><p class='message_p' id='message"+i+"'></p> <span class='name' id='name"+i+"'>匿名</span> <span class='pubTime'>0000-00-00</span><span class='layui-btn-mini layui-btn-radius layui-btn-primary button'>评论</span><span class='layui-btn-mini layui-btn-radius layui-btn-primary button2'>分享</span></div>");
+                    content.append(message);
+                    var username = data.data.list[i].username;
+                    var m = data.data.list[i].content;
+                    if(data.data.list[i].isOpen!=0){
+                        $("#name"+i+"").html(username);
+                    }
+                    $("#message"+i+"").html(m);
+                }
+                lastPage = data.data.lastPage;
+            }
+//            error:function(tt){
+//                alert("出现异常，异常原因!");
+//            }
+        });
+    })
+
+    var first = document.getElementById('first');
+    var last = document.getElementById('last');
+    var next = document.getElementById('next');
+    var end = document.getElementById('end');
+    first.onclick = function(){
+        if(pageNumber!=1){
+            window.location.href = "shudong.html?pageNumber=1";
+        }
+    }
+    last.onclick = function(){
+        if(pageNumber > 1){
+            pageNumber--;
+            window.location.href = "shudong.html?pageNumber="+pageNumber+"";
+        }
+    }
+    next.onclick = function(){
+        if(pageNumber < lastPage){
+            pageNumber++;
+            window.location.href = "shudong.html?pageNumber="+pageNumber+"";
+        }
+    }
+    end.onclick = function(){
+        if(pageNumber!=lastPage){
+            window.location.href = "shudong.html?pageNumber="+lastPage+"";
+        }
+    }
+
+    function getQueryVariable(variable)
+    {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+    }
+</script>
+
+</body>
+</html>

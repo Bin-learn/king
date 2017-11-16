@@ -1,5 +1,6 @@
 package com.king.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.king.common.Const;
 import com.king.common.ResponseFormat;
 import com.king.pojo.User;
@@ -35,6 +36,15 @@ public class ShudongController {
 
             session.setAttribute(Const.CURRENT_USER,response.getData());
         }
+        return response;
+    }
+
+    @RequestMapping(value="getContent.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseFormat<PageInfo> getContent(Integer pageNo){
+
+        ResponseFormat<PageInfo> response = shudongService.getContent(pageNo);
+
         return response;
     }
 }

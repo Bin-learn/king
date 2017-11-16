@@ -7,6 +7,7 @@
       <arg column="username" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="label" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="isOpen" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.king.pojo.Content" >
@@ -16,16 +17,17 @@
       <arg column="label" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="isOpen" jdbcType="TINYINT" javaType="java.lang.Byte" />
       <arg column="content" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+      <arg column="time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
-  <sql id="Blob_Column_List" >
-    content
+  <sql id="Base_Column_List" >
+    id, username, content, label, isOpen, time
   </sql>
   <insert id="insert" parameterType="com.king.pojo.Content" >
     insert into content (id, username, label, 
       isOpen, content)
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{label,jdbcType=VARCHAR}, 
-      #{isOpen,jdbcType=TINYINT}, #{content,jdbcType=LONGVARCHAR})
+      #{isOpen,jdbcType=TINYINT}, #{content,jdbcType=LONGVARCHAR}, #{time,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.king.pojo.Content" >
     insert into content
@@ -45,6 +47,9 @@
       <if test="content != null" >
         content,
       </if>
+      <if test="time != null" >
+        time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -62,13 +67,21 @@
       <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
       </if>
+      <if test="time != null" >
+      #{time,jdbcType=TIMESTAMP}
+      </if>
     </trim>
   </insert>
 
   <insert id="save" parameterType="map">
     INSERT INTO content
-    (username, content, label, isOpen)
+    (username, content, label, isOpen, time)
     VALUES
-    (#{username}, #{content}, #{label}, #{isOpen})
+    (#{username}, #{content}, #{label}, #{isOpen}, now())
   </insert>
+
+  <select id="getContent" resultMap="ResultMapWithBLOBs">
+    SELECT <include refid="Base_Column_List"/>
+    FROM content
+  </select>
 </mapper>

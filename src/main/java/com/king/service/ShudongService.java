@@ -1,5 +1,6 @@
 package com.king.service;
 
+import com.github.pagehelper.PageInfo;
 import com.king.common.ResponseFormat;
 import com.king.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,4 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public interface ShudongService {
     ResponseFormat<String> save(String label, String content, String username, Integer isOpen);
+
+    ResponseFormat<PageInfo> getContent(Integer pageNo);
 }
