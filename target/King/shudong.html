@@ -11,11 +11,15 @@
         .message .pubTime{position:absolute;  bottom:10px; left:100px; color:#999;}
         .message .name{position:absolute;  bottom:10px; left:20px; color:#999;}
         .message .message_p{margin-top: -10px; margin-bottom: 15px; }
-        .button{ position:absolute;  bottom:10px; left:400px; padding: 1px 2px 1px;margin-bottom: -2px;}
-        .button2{ position:absolute;  bottom:10px; left:450px; padding: 1px 2px 1px;margin-bottom: -2px;}
-        .page{margin-left: 100px;}
+        .button{ position:absolute;  bottom:10px; left:605px; padding: 1px 2px 1px;margin-bottom: -2px;}
+        .button2{ position:absolute;  bottom:10px; left:655px; padding: 1px 2px 1px;margin-bottom: -2px;}
+        .page{display: flex;justify-content:space-between;}
+        .page_left{margin-left: 100px;}
+        .page_right{margin-right: 280px;}
         .left {width: 80%; margin: 0 auto}
         .right {width: 20%;}
+        .content{
+            flex:1; }
     </style>
 </head>
 <body>
@@ -28,12 +32,15 @@
 <div class="total">
     <div class="left">
         <div class="content" id="content"></div>
-            <div class="layui-btn-group page">
+        <div class="page">
+            <div class="layui-btn-group page_left">
                 <button class="layui-btn" id="first">首页</button>
                 <button class="layui-btn" id="last">上一页</button>
                 <button class="layui-btn" id="next">下一页</button>
                 <button class="layui-btn" id="end">尾页</button>
             </div>
+            <div class="page_right">第<span id="pageNum"></span>页，共<span id="total"></span>页</div>
+        </div>
     </div>
     <div class="right"></div>
 </div>
@@ -48,6 +55,7 @@
         var content = $('#content');
         var params = {};
         params.pageNo =  pageNumber;
+        $('#pageNum').html(pageNumber);
         var message = null;
         $.ajax({
             type: "POST",
@@ -68,6 +76,7 @@
                     $("#message"+i+"").html(m);
                 }
                 lastPage = data.data.lastPage;
+                $('#total').html(lastPage);
             }
 //            error:function(tt){
 //                alert("出现异常，异常原因!");

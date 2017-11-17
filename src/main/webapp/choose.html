@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>计机向上--树洞</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="layui/css/layui.css">、
+    <style type="text/css">
+        .button{
+            display: flex;
+            justify-content: center;
+            margin-top: 200px;
+        }
+        .button2{
+            margin-right: 50px;
+        }
+        .button3{
+            margin-left: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="button" >
+        <button class="layui-btn-lg layui-btn-radius layui-btn-normal button2" id="king">国王与天使</button>
+        <span>        </span>
+        <button class="layui-btn-lg layui-btn-radius layui-btn-normal button3" id="shudong">树 洞</button>
+    </div>
+<script src="js/jquery.min.js"></script>
+<script src="layui/layui.js"></script>
+<script type="text/javascript">
+    var shudong = document.getElementById("shudong");
+    var king = document.getElementById("king");
+    shudong.onclick = function(){
+        window.location.href = "shudong.html?pageNumber=1";
+    }
+    king.onclick = function(){
+        window.location.href = "king.html";
+    }
+</script>
+
+</body>
+</html>
