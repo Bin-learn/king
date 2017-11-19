@@ -99,18 +99,22 @@
 .head {
     width: 100%;
     height: 200px;
-    background: red;
     margin-bottom: 15px;
+    background: url(../img/tree_hole_head.png) center center;
 }
 .foot {
     width: 100%;
-    height: 200px;
-    background: blue;
+    height: 50px;
     margin-top: 15px;
+    background: rgb(191, 244, 236);
 }
 .left {
     width: 70%;
 }
 .right {
     width: 30%;
+}
+
+body{
+    background: rgb(217, 214, 207);
 }

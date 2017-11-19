@@ -13,16 +13,19 @@
         .message .message_p{margin-top: -10px; margin-bottom: 15px; }
         .button{ position:absolute;  bottom:10px; left:605px; padding: 1px 2px 1px;margin-bottom: -2px;}
         .button2{ position:absolute;  bottom:10px; left:655px; padding: 1px 2px 1px;margin-bottom: -2px;}
-        .page{display: flex;justify-content:space-between;}
+        .page{width: 660px; display: flex;justify-content:space-between;}
         .page_left{margin-left: 100px;}
-        .page_right{margin-right: 280px;}
+        .page_right{margin-right: -140px;}
         .left {width: 80%; margin: 0 auto}
         .right {width: 20%;}
-        .content{
-            flex:1; }
+        .content{flex:1;}
+        .return{ position: fixed;  z-index: 1; top:0; left: 0;}
     </style>
 </head>
 <body>
+<div class="return">
+    <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal return" id="choose">返回首页</button>
+</div>
 <div class="head">
     <div class="head-bg">
     </div>
@@ -88,6 +91,7 @@
     var last = document.getElementById('last');
     var next = document.getElementById('next');
     var end = document.getElementById('end');
+    var choose = document.getElementById('choose');
     first.onclick = function(){
         if(pageNumber!=1){
             window.location.href = "shudong.html?pageNumber=1";
@@ -109,6 +113,10 @@
         if(pageNumber!=lastPage){
             window.location.href = "shudong.html?pageNumber="+lastPage+"";
         }
+    }
+
+    choose.onclick = function(){
+        window.location.href = "choose.html";
     }
 
     function getQueryVariable(variable)

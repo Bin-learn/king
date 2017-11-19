@@ -9,9 +9,13 @@
             background: url(img/angle_back.jpg) center center;
             font-size: 20px;
         }
+        .return{ position: fixed;  z-index: 1; top:0; left: 0;}
     </style>
 </head>
 <body>
+<div class="return">
+    <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal return" id="choose">返回首页</button>
+</div>
 <div style="text-align:center;">
     <br><br>
     <img src="img/angle.png" alt="Stanley">
@@ -24,6 +28,7 @@
 <script src="js/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
+        var choose = document.getElementById('choose');
         var params = {}
         var storage = window.localStorage;
         var userMessage = storage.getItem("user");
@@ -53,5 +58,9 @@
             }
         });
     });
+
+    choose.onclick = function(){
+        window.location.href = "choose.html";
+    }
 </script>
 </html>
