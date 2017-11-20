@@ -34,7 +34,9 @@
 </div>
 <div class="total">
     <div class="left">
-        <div class="content" id="content"></div>
+        <div class="content" id="content">
+
+        </div>
         <div class="page">
             <div class="layui-btn-group page_left">
                 <button class="layui-btn" id="first">首页</button>
@@ -69,7 +71,8 @@
             success:function(data){
                 var num = data.data.list.length;
                 for(var i=0; i < num; i++){
-                    message = $("<div class='message'><p class='message_p' id='message"+i+"'></p> <span class='name' id='name"+i+"'>匿名</span> <span class='pubTime'>0000-00-00</span><span class='layui-btn-mini layui-btn-radius layui-btn-primary button'>评论</span><span class='layui-btn-mini layui-btn-radius layui-btn-primary button2'>分享</span></div>");
+                    message = $("<div class='message'><p class='message_p' id='message"+i+"'></p> <span class='name' id='name"+i+"'>匿名</span> <span class='pubTime' id='pubTime'>0000-00-00</span></div>");
+                    //message = $("<div class='message'><p class='message_p' id='message"+i+"'></p> <span class='name' id='name"+i+"'>匿名</span> <span class='pubTime'>0000-00-00</span><span class='layui-btn-mini layui-btn-radius layui-btn-primary button' id='comment' onclick='comment()'>评论</span><span class='layui-btn-mini layui-btn-radius layui-btn-primary button2'>分享</span></div>");
                     content.append(message);
                     var username = data.data.list[i].username;
                     var m = data.data.list[i].content;
@@ -77,6 +80,8 @@
                         $("#name"+i+"").html(username);
                     }
                     $("#message"+i+"").html(m);
+                    console.log(data.data.list[i].time);
+                    $("#pubTime").html(data.data.list[i].time);
                 }
                 lastPage = data.data.lastPage;
                 $('#total').html(lastPage);
@@ -129,6 +134,16 @@
         }
         return(false);
     }
+    $(document).ready(function(){
+        $("#comment").click(function(){
+            alert("Hello World");
+        });
+    });
+    function comment() {
+
+    }
+
+
 </script>
 
 </body>

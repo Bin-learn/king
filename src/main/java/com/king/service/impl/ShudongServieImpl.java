@@ -10,6 +10,7 @@ import com.king.service.ShudongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -34,13 +35,12 @@ public class ShudongServieImpl implements ShudongService {
 
     @Override
     public ResponseFormat<PageInfo> getContent(Integer pageNo) {
-
+        int i;
         pageNo = pageNo == null?1:pageNo;
         int pageSize = 10;
         PageHelper.startPage(pageNo, pageSize);
         List<Content> contentList = contentMapper.getContent();
         PageInfo pageInfoContent = new PageInfo(contentList);
-
         return ResponseFormat.createBySuccess(pageInfoContent);
     }
 }
